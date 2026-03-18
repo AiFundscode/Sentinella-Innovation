@@ -1,763 +1,309 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sentinella Innovation LTD | Visionary Tech Partner</title>
-  <meta name="description" content="Leading ICT solutions: Web, Mobile Apps, Blockchain, Cybersecurity, Cloud, Game Dev, Satellite & more."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0a0e17;
-      --dark: #0f1624;
-      --primary: #00ddeb;
-      --primary-dark: #00a8b5;
-      --accent: #7c3aed;
-      --text: #e2e8f0;
-      --text-muted: #94a3b8;
-      --glass: rgba(15, 22, 36, 0.65);
-      --blur: blur(12px);
-      --success: #22c55e;
-      --error: #ef4444;
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    h1, h2, h3 { font-family: 'Orbitron', sans-serif; }
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background: rgba(10, 14, 23, 0.8);
-      backdrop-filter: var(--blur);
-      -webkit-backdrop-filter: var(--blur);
-      z-index: 1000;
-      padding: 1rem 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.4s;
-    }
-    nav.scrolled { background: rgba(10, 14, 23, 0.95); padding: 0.8rem 5%; }
-    .logo img { height: 50px; }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2.5rem;
-    }
-    nav a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-    nav a:hover { color: var(--primary); }
-    header {
-      height: 100vh;
-      min-height: 700px;
-      background: linear-gradient(rgba(10,14,23,0.75), rgba(10,14,23,0.45)),
-                  url('assets/background.jpg') center/cover no-repeat fixed;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 5%;
-    }
-    .hero-content {
-      max-width: 1100px;
-    }
-    .hero-content h1 {
-      font-size: 4.5rem;
-      margin-bottom: 1rem;
-      background: linear-gradient(90deg, var(--primary), #a78bfa, var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-content p { font-size: 1.4rem; max-width: 800px; margin: 0 auto 2.5rem; color: var(--text-muted); }
-    .btn {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: white;
-      padding: 1rem 2.5rem;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.4s;
-      text-decoration: none;
-      display: inline-block;
-      margin: 0.8rem;
-    }
-    .btn:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(0,221,235,0.4); }
-    section {
-      padding: 120px 5%;
-      max-width: 1300px;
-      margin: 0 auto;
-    }
-    h2 {
-      text-align: center;
-      font-size: 3.2rem;
-      margin-bottom: 4rem;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 2.5rem;
-    }
-    .service-card {
-      background: var(--glass);
-      backdrop-filter: var(--blur);
-      -webkit-backdrop-filter: var(--blur);
-      border: 1px solid rgba(0,221,235,0.15);
-      border-radius: 20px;
-      padding: 2.5rem;
-      transition: all 0.5s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .service-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0,221,235,0.08), rgba(124,58,237,0.05));
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-    .service-card:hover::before { opacity: 1; }
-    .service-card:hover {
-      transform: translateY(-15px) scale(1.03);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(0,221,235,0.25);
-    }
-    .service-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 1.5rem;
-      display: block;
-      border-radius: 16px;
-      object-fit: contain;
-    }
-    .service-card h3 {
-      color: var(--primary);
-      margin-bottom: 1rem;
-      font-size: 1.6rem;
-    }
-    .service-card ul {
-      list-style: none;
-      color: var(--text-muted);
-    }
-    .service-card li { margin: 0.6rem 0; position: relative; padding-left: 1.5rem; }
-    .service-card li::before {
-      content: "→";
-      color: var(--primary);
-      position: absolute;
-      left: 0;
-    }
-    #contact-form {
-      background: var(--glass);
-      backdrop-filter: var(--blur);
-      border: 1px solid rgba(0,221,235,0.2);
-      border-radius: 20px;
-      padding: 3rem;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    #contact-form label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-      color: var(--text);
-    }
-    #contact-form input,
-    #contact-form textarea {
-      width: 100%;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(0,221,235,0.3);
-      border-radius: 10px;
-      color: var(--text);
-      font-size: 1rem;
-      transition: border 0.3s;
-    }
-    #contact-form input:focus,
-    #contact-form textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(0,221,235,0.2);
-    }
-    #contact-form textarea { min-height: 150px; resize: vertical; }
-    #contact-form button {
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      color: white;
-      padding: 1rem 2.5rem;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.4s;
-    }
-    #contact-form button:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,221,235,0.3); }
-    #form-message {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: 500;
-    }
-    .success { background: rgba(34,197,94,0.2); color: var(--success); }
-    .error { background: rgba(239,68,68,0.2); color: var(--error); }
-    #contact { text-align: center; }
-    footer {
-      background: #000;
-      padding: 3rem 5%;
-      text-align: center;
-      color: var(--text-muted);
-      border-top: 1px solid rgba(0,221,235,0.1);
-    }
-    .honeypot { display: none; }
-    @media (max-width: 768px) {
-      .hero-content h1 { font-size: 3.2rem; }
-      nav ul { gap: 1.2rem; font-size: 0.95rem; }
-      #contact-form { padding: 2rem; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Your existing navbar, header, services, mission sections remain the same -->
-
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <p style="font-size: 1.4rem; max-width: 700px; margin: 0 auto 3rem; color: var(--text-muted);">
-      Sentinella Innovation LTD<br>
-      PG House, Gbalajam Woji, Port Harcourt<br><br>
-      <strong>Phone:</strong> +44 682 728 993 | +234 816 974 7075<br>
-      <strong>Email:</strong> info@sentinovate.com<br>
-      <strong>Website:</strong> www.sentinovate.com
-    </p>
-
-    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
-      <!-- Replace YOUR_ACCESS_KEY_HERE with your real Web3Forms access key -->
-      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-
-      <!-- Optional: Customize email subject & receiver -->
-      <input type="hidden" name="subject" value="New Contact from Sentinella Website">
-      <input type="hidden" name="from_name" value="Sentinella Website Visitor">
-
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required placeholder="Your Name">
-
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required placeholder="your@email.com">
-
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" placeholder="+234 ... or +44 ...">
-
-      <label for="subject">Subject</label>
-      <input type="text" id="subject" name="subject_custom" placeholder="e.g. Web Development Inquiry">
-
-      <label for="message">Message</label>
-      <textarea id="message" name="message" required placeholder="Tell us about your project or question..."></textarea>
-
-      <!-- Honeypot spam trap (leave empty) -->
-      <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
-
-      <button type="submit">Send Message</button>
-
-      <div id="form-message"></div>
-    </form>
-
-    <p style="font-size: 2rem; color: var(--primary); margin-top: 4rem;">SINO</p>
-  </section>
-
-  <footer>
-    © 2026 Sentinella Innovation LTD. Built with vision and innovation.
-  </footer>
-
-  <script>
-    // Navbar scroll & smooth scroll (your existing code)
-    window.addEventListener('scroll', () => {
-      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 100);
-    });
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-
-    // Contact form handling
-    const form = document.getElementById('contact-form');
-    const messageDiv = document.getElementById('form-message');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      messageDiv.textContent = '';
-      messageDiv.className = '';
-
-      try {
-        const formData = new FormData(form);
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          messageDiv.textContent = 'Thank you! Your message has been sent successfully. We will get back to you soon.';
-          messageDiv.classList.add('success');
-          form.reset();
-        } else {
-          const data = await response.json();
-          throw new Error(data.message || 'Something went wrong. Please try again.');
-        }
-      } catch (error) {
-        messageDiv.textContent = error.message || 'Failed to send message. Check your connection or try later.';
-        messageDiv.classList.add('error');
-      }
-    });
-  </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sentinella Innovation LTD | Visionary Tech Partner</title>
+    <title>Sentinella Innovation LTD • Next-Gen ICT Solutions</title>
     <meta name="description"
-        content="Leading ICT solutions: Web, Mobile Apps, Blockchain, Cybersecurity, Cloud, Game Dev, Satellite & more." />
+        content="Enterprise-grade satellite connectivity • Cybersecurity & penetration testing • Cloud transformation • Blockchain • Custom software • AI automation • UX/UI design • IT support & networking." />
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0e17;
-            --dark: #0f1624;
-            --primary: #00ddeb;
-            --primary-dark: #00a8b5;
-            --accent: #7c3aed;
-            --text: #e2e8f0;
-            --text-muted: #94a3b8;
-            --glass: rgba(15, 22, 36, 0.65);
-            --blur: blur(12px);
-            --success: #22c55e;
-            --error: #ef4444;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --cyan: #00f0ff;
+            --purple: #7c3aed;
+            --dark: #0a0f1a;
+            --glass: rgba(15, 23, 42, 0.62);
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--dark);
+            color: #e2e8f0;
         }
 
         h1,
         h2,
         h3 {
             font-family: 'Orbitron', sans-serif;
+            letter-spacing: -0.025em;
         }
 
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 14, 23, 0.8);
-            backdrop-filter: var(--blur);
-            -webkit-backdrop-filter: var(--blur);
-            z-index: 1000;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.4s;
-        }
-
-        nav.scrolled {
-            background: rgba(10, 14, 23, 0.95);
-            padding: 0.8rem 5%;
-        }
-
-        .logo img {
-            height: 50px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        nav a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        header {
-            height: 100vh;
-            min-height: 700px;
-            background: linear-gradient(rgba(10, 14, 23, 0.75), rgba(10, 14, 23, 0.45)),
-                url('assets/background.jpg') center/cover no-repeat fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 5%;
-        }
-
-        .hero-content {
-            max-width: 1100px;
-        }
-
-        .hero-content h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, var(--primary), #a78bfa, var(--accent));
+        .gradient-text {
+            background: linear-gradient(90deg, #00f0ff, #a78bfa, #7c3aed, #00f0ff);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: flow 12s linear infinite;
         }
 
-        .hero-content p {
-            font-size: 1.4rem;
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-            color: var(--text-muted);
-        }
-
-        .btn {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 1rem 2.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.4s;
-            text-decoration: none;
-            display: inline-block;
-            margin: 0.8rem;
-        }
-
-        .btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(0, 221, 235, 0.4);
-        }
-
-        section {
-            padding: 120px 5%;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            text-align: center;
-            font-size: 3.2rem;
-            margin-bottom: 4rem;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .service-card {
-            background: var(--glass);
-            backdrop-filter: var(--blur);
-            -webkit-backdrop-filter: var(--blur);
-            border: 1px solid rgba(0, 221, 235, 0.15);
-            border-radius: 20px;
-            padding: 2.5rem;
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(0, 221, 235, 0.08), rgba(124, 58, 237, 0.05));
-            opacity: 0;
-            transition: opacity 0.5s;
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-card:hover {
-            transform: translateY(-15px) scale(1.03);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(0, 221, 235, 0.25);
-        }
-
-        .service-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
-            display: block;
-            border-radius: 16px;
-            object-fit: contain;
-        }
-
-        .service-card h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-size: 1.6rem;
-        }
-
-        .service-card ul {
-            list-style: none;
-            color: var(--text-muted);
-        }
-
-        .service-card li {
-            margin: 0.6rem 0;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-
-        .service-card li::before {
-            content: "→";
-            color: var(--primary);
-            position: absolute;
-            left: 0;
-        }
-
-        #contact-form {
-            background: var(--glass);
-            backdrop-filter: var(--blur);
-            border: 1px solid rgba(0, 221, 235, 0.2);
-            border-radius: 20px;
-            padding: 3rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        #contact-form label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        #contact-form input,
-        #contact-form textarea {
-            width: 100%;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 221, 235, 0.3);
-            border-radius: 10px;
-            color: var(--text);
-            font-size: 1rem;
-            transition: border 0.3s;
-        }
-
-        #contact-form input:focus,
-        #contact-form textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0, 221, 235, 0.2);
-        }
-
-        #contact-form textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        #contact-form button {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 1rem 2.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.4s;
-        }
-
-        #contact-form button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 221, 235, 0.3);
-        }
-
-        #form-message {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 500;
-        }
-
-        .success {
-            background: rgba(34, 197, 94, 0.2);
-            color: var(--success);
-        }
-
-        .error {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--error);
-        }
-
-        #contact {
-            text-align: center;
-        }
-
-        footer {
-            background: #000;
-            padding: 3rem 5%;
-            text-align: center;
-            color: var(--text-muted);
-            border-top: 1px solid rgba(0, 221, 235, 0.1);
-        }
-
-        .honeypot {
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 3.2rem;
+        @keyframes flow {
+            0% {
+                background-position: 0% center;
             }
 
-            nav ul {
-                gap: 1.2rem;
-                font-size: 0.95rem;
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 240, 255, 0.08);
+        }
+
+        .glow-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 240, 255, 0.18),
+                0 0 30px rgba(0, 240, 255, 0.12);
+        }
+
+        #whatsapp-btn {
+            animation: pulse 2.2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
             }
 
-            #contact-form {
-                padding: 2rem;
+            50% {
+                transform: scale(1.14);
             }
         }
     </style>
 </head>
 
-<body>
+<body class="antialiased">
 
-    <!-- Your existing navbar, header, services, mission sections remain the same -->
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/2348169747075?text=Hello%20Sentinella%20Team%2C%20I%27d%20like%20to%20discuss%20a%20project..."
+        target="_blank" id="whatsapp-btn"
+        class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20b858] text-white p-4 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center w-16 h-16 md:w-18 md:h-18">
+        <svg class="w-8 h-8 md:w-9 md:h-9" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M12 2C6.48 2 2 6.48 2 12c0 2.14.7 4.11 1.88 5.71L2 22l4.29-1.88C7.89 21.3 9.86 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm4.78 14.38c-.18.5-.56.9-1.06 1.08-.8.3-1.86.46-3.04.46-3.2 0-5.84-2.1-5.84-4.68 0-1.04.36-2 .98-2.78.62-.78 1.5-1.34 2.56-1.62.5-.14 1.02-.22 1.54-.22 1.06 0 2.06.3 2.9.86.84.56 1.5 1.34 1.9 2.3.4.96.46 2.02.2 3.02z" />
+        </svg>
+    </a>
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p style="font-size: 1.4rem; max-width: 700px; margin: 0 auto 3rem; color: var(--text-muted);">
-            Sentinella Innovation LTD<br>
-            PG House, Gbalajam Woji, Port Harcourt<br><br>
-            <strong>Phone:</strong> +44 682 728 993 | +234 816 974 7075<br>
-            <strong>Email:</strong> info@sentinovate.com<br>
-            <strong>Website:</strong> www.sentinovate.com
-        </p>
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 z-40 bg-gray-950/70 backdrop-blur-xl border-b border-gray-800/50">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+            <div class="flex justify-between items-center h-18 md:h-20">
+                <div class="flex items-center gap-3">
+                    <img src="assets/logo.png" alt="Sentinella" class="h-9 md:h-11">
+                    <span class="text-xl md:text-2xl font-bold gradient-text tracking-tight">SENTINELLA</span>
+                </div>
+                <div class="hidden md:flex items-center gap-10">
+                    <a href="#services"
+                        class="text-gray-300 hover:text-cyan-400 transition-colors font-medium">Services</a>
+                    <a href="#industries"
+                        class="text-gray-300 hover:text-cyan-400 transition-colors font-medium">Industries</a>
+                    <a href="contact.html"
+                        class="ml-4 px-7 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-semibold rounded-full hover:shadow-cyan-500/30 transition shadow-lg">
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
-            <!-- Replace YOUR_ACCESS_KEY_HERE with your real Web3Forms access key -->
-            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-
-            <!-- Optional: Customize email subject & receiver -->
-            <input type="hidden" name="subject" value="New Contact from Sentinella Website">
-            <input type="hidden" name="from_name" value="Sentinella Website Visitor">
-
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" required placeholder="Your Name">
-
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required placeholder="your@email.com">
-
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="+234 ... or +44 ...">
-
-            <label for="subject">Subject</label>
-            <input type="text" id="subject" name="subject_custom" placeholder="e.g. Web Development Inquiry">
-
-            <label for="message">Message</label>
-            <textarea id="message" name="message" required
-                placeholder="Tell us about your project or question..."></textarea>
-
-            <!-- Honeypot spam trap (leave empty) -->
-            <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
-
-            <button type="submit">Send Message</button>
-
-            <div id="form-message"></div>
-        </form>
-
-        <p style="font-size: 2rem; color: var(--primary); margin-top: 4rem;">SINO</p>
+    <!-- Hero -->
+    <section
+        class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-black pt-20">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold gradient-text leading-tight mb-8">
+                Next-Generation<br>ICT Innovation
+            </h1>
+            <p class="text-xl md:text-2xl lg:text-3xl text-gray-300 max-w-5xl mx-auto mb-12 font-light leading-relaxed">
+                Satellite connectivity • Enterprise cybersecurity • Cloud transformation • Blockchain platforms • Custom
+                software & data intelligence
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="#services"
+                    class="px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-semibold text-lg rounded-full shadow-xl hover:shadow-cyan-500/40 transition transform hover:-translate-y-1">
+                    Discover Our Solutions
+                </a>
+                <a href="contact.html"
+                    class="px-10 py-5 border-2 border-cyan-500 text-cyan-400 font-semibold text-lg rounded-full hover:bg-cyan-500/10 transition">
+                    Speak with an Expert
+                </a>
+            </div>
+        </div>
     </section>
 
-    <footer>
-        © 2026 Sentinella Innovation LTD. Built with vision and innovation.
+    <!-- Stats -->
+    <section class="py-16 bg-black/40 border-t border-b border-gray-800/50">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="text-4xl md:text-5xl font-bold gradient-text">80+</div>
+                <p class="mt-3 text-gray-400">Projects Delivered</p>
+            </div>
+            <div>
+                <div class="text-4xl md:text-5xl font-bold gradient-text">35+</div>
+                <p class="mt-3 text-gray-400">Enterprise Clients</p>
+            </div>
+            <div>
+                <div class="text-4xl md:text-5xl font-bold gradient-text">12</div>
+                <p class="mt-3 text-gray-400">Countries Served</p>
+            </div>
+            <div>
+                <div class="text-4xl md:text-5xl font-bold gradient-text">98%</div>
+                <p class="mt-3 text-gray-400">Satisfaction Rate</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-24 md:py-32 bg-gradient-to-b from-black to-gray-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-bold gradient-text mb-6">Core Capabilities</h2>
+                <p class="text-xl md:text-2xl text-gray-400 max-w-4xl mx-auto">
+                    End-to-end technology solutions built for mission-critical environments.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                <!-- Satellite -->
+                <div class="glass glow-hover rounded-3xl p-8 md:p-10">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-5">Satellite Connectivity</h3>
+                    <p class="text-gray-300 text-lg">VSAT • LEO/MEO/GEO • Remote IoT • Maritime & rural broadband •
+                        Disaster recovery links</p>
+                </div>
+
+                <!-- Cybersecurity -->
+                <div class="glass glow-hover rounded-3xl p-8 md:p-10">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-5">Cybersecurity & Pentesting</h3>
+                    <p class="text-gray-300 text-lg">Red teaming • Ethical hacking • SIEM/SOAR • Zero-trust • Compliance
+                        & audits</p>
+                </div>
+
+                <!-- Cloud -->
+                <div class="glass glow-hover rounded-3xl p-8 md:p-10">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-5">Cloud & Data Platform</h3>
+                    <p class="text-gray-300 text-lg">IaaS • SaaS • OSS/BSS modernization • Big data analytics • BI • ETL
+                        • Managed IT support</p>
+                </div>
+
+                <!-- Blockchain -->
+                <div class="glass glow-hover rounded-3xl p-8 md:p-10">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-5">Blockchain & Web3</h3>
+                    <p class="text-gray-300 text-lg">Enterprise blockchain • Smart contracts • Supply-chain transparency
+                        • Token infrastructure • NFT/DeFi platforms</p>
+                </div>
+
+                <!-- UX/UI -->
+                <div class="glass glow-hover rounded-3xl p-8 md:p-10">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-5">UX/UI Design</h3>
+                    <p class="text-gray-300 text-lg">Web Design • WebApp Design (workstation interfaces) • Database
+                        Design & visualization • User-centered interfaces & prototypes</p>
+                </div>
+
+                <!-- Custom Software -->
+                <div class="glass glow-hover rounded-3xl p-8 md:p-10">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-5">Custom Software</h3>
+                    <p class="text-gray-300 text-lg">Web • Mobile (iOS/Android) • Desktop • ERP/CRM • AI-powered
+                        automation • Low-code platforms</p>
+                </div>
+
+                <!-- AI -->
+                <div class="glass glow-hover rounded-3xl p-8 md:p-10">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-5">AI & Automation</h3>
+                    <p class="text-gray-300 text-lg">AI Automation • Intelligent workflows • Chatbots & virtual agents •
+                        Predictive analytics • Process optimization</p>
+                </div>
+
+                <!-- IT Tech Support -->
+                <div class="glass glow-hover rounded-3xl p-8 md:p-10">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-5">IT Tech Support</h3>
+                    <p class="text-gray-300 text-lg">Computer Maintenance • Networking • Hardware/software
+                        troubleshooting • On-site & remote support • Infrastructure management</p>
+                </div>
+
+                <!-- Game & Immersive -->
+                <div class="glass glow-hover rounded-3xl p-8 md:p-10">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-5">Game & Immersive Tech</h3>
+                    <p class="text-gray-300 text-lg">Mobile/PC/console games • VR/AR training • Simulation environments
+                        • Unity/Unreal Engine</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries -->
+    <section id="industries" class="py-24 md:py-32 bg-black/60">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl md:text-6xl font-bold gradient-text text-center mb-16">Who We Serve</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass glow-hover rounded-3xl p-10 text-center">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-4">Government & Defense</h3>
+                    <p class="text-gray-300">Secure networks, satellite comms, e-governance platforms</p>
+                </div>
+                <div class="glass glow-hover rounded-3xl p-10 text-center">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-4">Enterprise & Corporates</h3>
+                    <p class="text-gray-300">Cloud migration, cybersecurity, ERP, custom software</p>
+                </div>
+                <div class="glass glow-hover rounded-3xl p-10 text-center">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-4">NGOs & Development</h3>
+                    <p class="text-gray-300">Impact tracking, remote connectivity, low-cost platforms</p>
+                </div>
+                <div class="glass glow-hover rounded-3xl p-10 text-center">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-4">Finance & Fintech</h3>
+                    <p class="text-gray-300">Blockchain, secure apps, regulatory compliance</p>
+                </div>
+                <div class="glass glow-hover rounded-3xl p-10 text-center">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-4">Energy & Utilities</h3>
+                    <p class="text-gray-300">Smart grid, satellite monitoring, SCADA security</p>
+                </div>
+                <div class="glass glow-hover rounded-3xl p-10 text-center">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-cyan-400 mb-4">Healthcare & Education</h3>
+                    <p class="text-gray-300">Telemedicine, e-learning, secure data platforms</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-32 bg-gradient-to-b from-black to-gray-950 text-center">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-4xl md:text-6xl font-bold gradient-text mb-8">
+                Ready to Build Tomorrow's Technology Today?
+            </h2>
+            <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto">
+                From mission-critical satellite links to enterprise-grade cybersecurity and cloud-native platforms — we
+                deliver.
+            </p>
+            <a href="contact.html"
+                class="inline-block px-14 py-7 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold text-xl rounded-full shadow-2xl hover:shadow-cyan-600/40 transition transform hover:-translate-y-2">
+                Start a Conversation →
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-16 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-6 text-center text-gray-500">
+            <p class="text-lg">Sentinella Innovation LTD</p>
+            <p class="mt-3">Woji, Port Harcourt, Nigeria</p>
+            <p class="mt-2">
+                <a href="mailto:info@sentinovate.com" class="text-cyan-400 hover:text-cyan-300">info@sentinovate.com</a>
+                <span class="mx-3">•</span>
+                +234 816 974 7075 <span class="mx-2">•</span> +44 682 728 993
+            </p>
+            <p class="mt-8 text-sm">© 2026 Sentinella Innovation LTD. All rights reserved.</p>
+        </div>
     </footer>
 
-    <script>
-        // Navbar scroll & smooth scroll (your existing code)
-        window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 100);
-        });
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', e => {
-                e.preventDefault();
-                document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-
-        // Contact form handling
-        const form = document.getElementById('contact-form');
-        const messageDiv = document.getElementById('form-message');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            messageDiv.textContent = '';
-            messageDiv.className = '';
-
-            try {
-                const formData = new FormData(form);
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                });
-
-                if (response.ok) {
-                    messageDiv.textContent = 'Thank you! Your message has been sent successfully. We will get back to you soon.';
-                    messageDiv.classList.add('success');
-                    form.reset();
-                } else {
-                    const data = await response.json();
-                    throw new Error(data.message || 'Something went wrong. Please try again.');
-                }
-            } catch (error) {
-                messageDiv.textContent = error.message || 'Failed to send message. Check your connection or try later.';
-                messageDiv.classList.add('error');
-            }
-        });
-    </script>
 </body>
 
 </html>
